@@ -91,9 +91,21 @@ def get_word_score(word, n):
     n: int >= 0
     returns: int >= 0
     """
+    small = word.lower()
+    component1 = 7*len(word) -3*(n-len(word))
+    component2 = 0
     
-    pass  # TO DO... Remove this line when you implement this function
+    if component1 < 1:
+        component1 = 1
+        
+    for i in small:
+        component2 += SCRABBLE_LETTER_VALUES[i]
+    
+    score = component1 * component2
+  
+    return score
 
+   
 #
 # Make sure you understand how this function works and what it does!
 #
@@ -167,9 +179,20 @@ def update_hand(hand, word):
     hand: dictionary (string -> int)    
     returns: dictionary (string -> int)
     """
-
-    pass  # TO DO... Remove this line when you implement this function
-
+    dict_word = get_frequency_dict(word.lower())
+    new_hand = hand.copy()
+    for i in dict_word:
+        for n in hand:
+            if i == n and hand[n] > dict_word[i]:
+                new_hand[n] = new_hand[n] - dict_word[i]
+    
+            elif i == n:
+                del new_hand[n]
+    return new_hand
+    #print(dict_word)
+   # print(hand)
+  #  print(new_hand)
+#update_hand({'e': 1, 'v': 2, 'n': 1, 'i': 1, 'l': 2}, 'Evil' )
 #
 # Problem #3: Test word validity
 #
@@ -185,7 +208,7 @@ def is_valid_word(word, hand, word_list):
     returns: boolean
     """
 
-    pass  # TO DO... Remove this line when you implement this function
+    pass
 
 #
 # Problem #5: Playing a hand
