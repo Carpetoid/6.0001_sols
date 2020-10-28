@@ -1,3 +1,3 @@
 # MIT OpenCourseWare 6.0001
 
-My work for the psets. Doc strings are in the making. Pset3 and 4 are almost done.
+My work for the psets. Doc strings are in the making. Pset 3, 4 and 5 are almost done.
