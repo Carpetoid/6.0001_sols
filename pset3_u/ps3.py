@@ -189,10 +189,7 @@ def update_hand(hand, word):
             elif i == n:
                 del new_hand[n]
     return new_hand
-    #print(dict_word)
-   # print(hand)
-  #  print(new_hand)
-#update_hand({'e': 1, 'v': 2, 'n': 1, 'i': 1, 'l': 2}, 'Evil' )
+   
 #
 # Problem #3: Test word validity
 #
@@ -207,8 +204,25 @@ def is_valid_word(word, hand, word_list):
     word_list: list of lowercase strings
     returns: boolean
     """
+    dict_word = get_frequency_dict(word.lower())
+    
+    word_new = word.lower()
+   
+    if word_new in word_list:
+        for i in dict_word:
+            if i in hand and dict_word[i] <= hand[i]:
+                continue
+            
+            else:
+                return False
+        return True
+            
+    
+    else:
+        return False
+    
 
-    pass
+    
 
 #
 # Problem #5: Playing a hand
