@@ -147,6 +147,8 @@ def deal_hand(n):
     
     hand={}
     num_vowels = int(math.ceil(n / 3))
+    num_vowels -= 1
+    hand += "*"
 
     for i in range(num_vowels):
         x = random.choice(VOWELS)
@@ -204,20 +206,16 @@ def is_valid_word(word, hand, word_list):
     word_list: list of lowercase strings
     returns: boolean
     """
-    dict_word = get_frequency_dict(word.lower())
-    
+    dict_word = get_frequency_dict(word.lower()) 
     word_new = word.lower()
    
     if word_new in word_list:
         for i in dict_word:
             if i in hand and dict_word[i] <= hand[i]:
                 continue
-            
             else:
                 return False
         return True
-            
-    
     else:
         return False
     
