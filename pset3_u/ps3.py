@@ -96,7 +96,8 @@ def get_word_score(word, n):
         component1 = 1
         
     for i in small:
-        component2 += SCRABBLE_LETTER_VALUES[i]
+        if i != '*':
+            component2 += SCRABBLE_LETTER_VALUES[i]
     
     score = component1 * component2
   
@@ -144,6 +145,9 @@ def deal_hand(n):
     
     hand={}
     num_vowels = int(math.ceil(n / 3))
+    
+    hand['*'] = 1
+    num_vowels -= 1
 
     for i in range(num_vowels):
         x = random.choice(VOWELS)
@@ -178,6 +182,7 @@ def update_hand(hand, word):
     """
     dict_word = get_frequency_dict(word.lower())
     new_hand = hand.copy()
+    
     for i in dict_word:
         for n in hand:
             if i == n and hand[n] > dict_word[i]:
@@ -185,6 +190,7 @@ def update_hand(hand, word):
     
             elif i == n:
                 del new_hand[n]
+   
     return new_hand
    
 #
@@ -204,17 +210,45 @@ def is_valid_word(word, hand, word_list):
     word_lower = word.lower()
     word_ls = list(word_lower)
     dict_word = get_frequency_dict(word_lower) 
-    
-    if word_lower in word_list:
-        for i in dict_word:
-            if i in hand and dict_word[i] <= hand[i]:
+    count = 0
+   
+    if "*" in word_lower:
+        s = word_lower.find("*")
+        
+        for i in VOWELS:
+            word_ls[s] = i
+            word_lower = ''.join(word_ls)
+            dict_word = get_frequency_dict(word_lower)
+            hand[i] = 1
+            count += 1
+           
+            if word_lower in word_list:
+                for i in dict_word:
+                    if i in hand and dict_word[i] <= hand[i]: 
+                        continue
+                    elif i != "*":
+                        return False
+                return True
+           
+            elif count <= len(VOWELS):
                 continue
+           
             else:
                 return False
-        return True
+                 
+             
     else:
-        return False
-       
+        if word_lower in word_list:
+            
+            for i in dict_word:
+                if i in hand and dict_word[i] <= hand[i]:
+                    continue
+                else:
+                    return False
+            return True
+        else:
+            return False
+            
         
 
 #
