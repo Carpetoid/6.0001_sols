@@ -208,6 +208,7 @@ def is_valid_word(word, hand, word_list):
     returns: boolean
     """
     word_lower = word.lower()
+    handnew = hand.copy()
     word_ls = list(word_lower)
     dict_word = get_frequency_dict(word_lower) 
     count = 0
@@ -219,12 +220,12 @@ def is_valid_word(word, hand, word_list):
             word_ls[s] = i
             word_lower = ''.join(word_ls)
             dict_word = get_frequency_dict(word_lower)
-            hand[i] = 1
+            handnew[i] = 1
             count += 1
            
             if word_lower in word_list:
                 for i in dict_word:
-                    if i in hand and dict_word[i] <= hand[i]: 
+                    if i in handnew and dict_word[i] <= handnew[i]: 
                         continue
                     elif i != "*":
                         return False
@@ -240,7 +241,7 @@ def is_valid_word(word, hand, word_list):
     elif word_lower in word_list:
             
             for i in dict_word:
-                if i in hand and dict_word[i] <= hand[i]:
+                if i in handnew and dict_word[i] <= handnew[i]:
                     continue
                 else:
                     return False
@@ -305,6 +306,7 @@ def play_hand(hand, word_list):
     while calculate_handlen(hand) > 0:
         
         # Display the hand
+        print()
         print("Current hand:", end=' ') 
         display_hand(hand)
     
@@ -314,7 +316,7 @@ def play_hand(hand, word_list):
         
         # If the input is two exclamation points:
         if word == '!!':
-        
+            print("Total score: {} points".format(total))
             # End the game (break out of the loop)
             break
 
@@ -335,14 +337,18 @@ def play_hand(hand, word_list):
                 print("That is not a valid word. Please choose another word.")
                 
         # update the user's hand by removing the letters of their inputted word
-        update_hand(hand, word)
+        hand = update_hand(hand, word)
+        
             
 
     # Game is over (user entered '!!' or ran out of letters),
     # so tell user the total score
+    print()
+    print("Ran out of letters. Total score: {} points".format(total))
 
     # Return the total score as result of function
-    
+    return total
+   
 
 
 #
@@ -353,7 +359,7 @@ def play_hand(hand, word_list):
 #
 # procedure you will use to substitute a letter in a hand
 #
-play_hand({"a":2, "s": 1, "q":3, "f":2}, load_words())
+play_hand({'a':1, "c":1, "f":1, "i":1, "*":1, "t":1, "x":1}, load_words())
 
 def substitute_hand(hand, letter):
     """ 
