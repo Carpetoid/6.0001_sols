@@ -359,7 +359,7 @@ def play_hand(hand, word_list):
 #
 # procedure you will use to substitute a letter in a hand
 #
-play_hand({'a':1, "c":1, "f":1, "i":1, "*":1, "t":1, "x":1}, load_words())
+
 
 def substitute_hand(hand, letter):
     """ 
@@ -384,8 +384,24 @@ def substitute_hand(hand, letter):
     returns: dictionary (string -> int)
     """
     
-    pass  # TO DO... Remove this line when you implement this function
-       
+    handnew = hand.copy()
+    value_letter = hand[letter]
+    keys = hand.keys()
+    if letter in handnew:
+        del handnew[letter]
+    ls_available_letters = list(string.ascii_lowercase)
+    for i in keys:
+        ls_available_letters.remove(i)
+    handnew[random.choice(ls_available_letters)] = value_letter
+    
+    
+    print(ls_available_letters)
+    print()
+    
+    return handnew
+    
+    
+print(substitute_hand({'a':1, "b":1, "c":1, "d":1, "e":100, "f":1}, "e"))
     
 def play_game(word_list):
     """
