@@ -158,7 +158,6 @@ def deal_hand(n):
         hand[x] = hand.get(x, 0) + 1
     
     return hand
-
 #
 # Problem #2: Update a hand by removing letters
 #
@@ -309,7 +308,8 @@ def play_hand(hand, word_list):
         print()
         print("Current hand:", end=' ') 
         display_hand(hand)
-    
+        print()
+
         
         # Ask user for input
         word = str(input("Enter word, or \"!!\" to indicate that you are finished: "))
@@ -385,23 +385,26 @@ def substitute_hand(hand, letter):
     """
     
     handnew = hand.copy()
-    value_letter = hand[letter]
-    keys = hand.keys()
     if letter in handnew:
         del handnew[letter]
+    else:
+        return handnew
+    
+    value_letter = hand[letter]
+    keys = hand.keys()
+    
+    
     ls_available_letters = list(string.ascii_lowercase)
+    
     for i in keys:
-        ls_available_letters.remove(i)
-    handnew[random.choice(ls_available_letters)] = value_letter
+        if i != "*":
+            ls_available_letters.remove(i)
     
-    
-    print(ls_available_letters)
-    print()
+    handnew[random.choice(ls_available_letters)] = value_letter  
     
     return handnew
-    
-    
-print(substitute_hand({'a':1, "b":1, "c":1, "d":1, "e":100, "f":1}, "e"))
+
+
     
 def play_game(word_list):
     """
@@ -434,7 +437,26 @@ def play_game(word_list):
     word_list: list of lowercase strings
     """
     
-    print("play_game not implemented.") # TO DO... Remove this line when you implement this function
+    num_hands = int(input("Enter total number of hands: "))
+    total = 0
+    while num_hands > 0:
+        hand = deal_hand(HAND_SIZE)
+        num_hands -= 1
+        print("Current hand:", end=' ')
+        display_hand(hand)
+        print()
+        answer = input("Would you like to substitute a letter? ")
+        if answer.lower() == 'yes':
+            letter = str(input("Which letter would you like to replace: ")).lower()
+            print()
+            play_hand(substitute_hand(hand, letter), word_list)
+        else:
+            print()
+            play_hand(hand, word_list)
+            
+        
+    
+    #print("play_game not implemented.") # TO DO... Remove this line when you implement this function
     
 
 
