@@ -316,7 +316,7 @@ def play_hand(hand, word_list):
         
         # If the input is two exclamation points:
         if word == '!!':
-            print("Total score: {} points".format(total))
+            print("Total score for this hand: {} points".format(total))
             # End the game (break out of the loop)
             break
 
@@ -344,7 +344,7 @@ def play_hand(hand, word_list):
     # Game is over (user entered '!!' or ran out of letters),
     # so tell user the total score
     print()
-    print("Ran out of letters. Total score: {} points".format(total))
+    print("Ran out of letters. Total score for this hand: {} points".format(total))
 
     # Return the total score as result of function
     return total
@@ -405,7 +405,11 @@ def substitute_hand(hand, letter):
     return handnew
 
 
-    
+#To whoever is reading this, yes, I didn't implement play_game.
+#But don't be lazy, it's enough that you're probably stealing the rest
+#of the code, and besides, all of the actual functions are already implemented
+#so you'll just need to put them together. Good luck with your life
+#and stop stealing code. Have fun writing play_game   
 def play_game(word_list):
     """
     Allow the user to play a series of hands
@@ -437,26 +441,10 @@ def play_game(word_list):
     word_list: list of lowercase strings
     """
     
-    num_hands = int(input("Enter total number of hands: "))
-    total = 0
-    while num_hands > 0:
-        hand = deal_hand(HAND_SIZE)
-        num_hands -= 1
-        print("Current hand:", end=' ')
-        display_hand(hand)
-        print()
-        answer = input("Would you like to substitute a letter? ")
-        if answer.lower() == 'yes':
-            letter = str(input("Which letter would you like to replace: ")).lower()
-            print()
-            play_hand(substitute_hand(hand, letter), word_list)
-        else:
-            print()
-            play_hand(hand, word_list)
-            
+    pass
         
     
-    #print("play_game not implemented.") # TO DO... Remove this line when you implement this function
+    print("play_game not implemented.") # TO DO... Remove this line when you implement this function
     
 
 
