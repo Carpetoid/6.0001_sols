@@ -405,11 +405,10 @@ def substitute_hand(hand, letter):
     return handnew
 
 
-#To whoever is reading this, yes, I didn't implement play_game.
-#But don't be lazy, it's enough that you're probably stealing the rest
-#of the code, and besides, all of the actual functions are already implemented
-#so you'll just need to put them together. Good luck with your life
-#and stop stealing code. Have fun writing play_game   
+#To whoever is reading this, yes, I didn't implement play_game, and no, 
+#I'm not sorry because all of the actual functions that are needed
+#for the game are implemented. Anyways, good luck with your life, stay strong 
+#and code, and I hope you get into whatever university you want. Bye!
 def play_game(word_list):
     """
     Allow the user to play a series of hands
