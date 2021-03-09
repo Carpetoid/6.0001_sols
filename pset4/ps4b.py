@@ -70,7 +70,9 @@ class Message(object):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        pass #delete this line and replace with your code here
+        self.message_text = text
+        self.valid_words = load_words('words.txt')
+        #done
 
     def get_message_text(self):
         '''
@@ -78,8 +80,8 @@ class Message(object):
         
         Returns: self.message_text
         '''
-        pass #delete this line and replace with your code here
-
+        return self.message_text
+        #done
     def get_valid_words(self):
         '''
         Used to safely access a copy of self.valid_words outside of the class.
@@ -87,8 +89,9 @@ class Message(object):
         
         Returns: a COPY of self.valid_words
         '''
-        pass #delete this line and replace with your code here
-
+        return self.valid_words.copy()
+        #done
+   
     def build_shift_dict(self, shift):
         '''
         Creates a dictionary that can be used to apply a cipher to a letter.
@@ -103,7 +106,21 @@ class Message(object):
         Returns: a dictionary mapping a letter (string) to 
                  another letter (string). 
         '''
-        pass #delete this line and replace with your code here
+        shifted= {}
+        
+        for i in range(26):
+           if 0 <= shift + i < 26:
+               shifted[string.ascii_uppercase[i]] = string.ascii_uppercase[i + shift]
+               shifted[string.ascii_lowercase[i]] = string.ascii_lowercase[i + shift]
+           else:
+               nshift = (shift + i) % 26
+               shifted[string.ascii_uppercase[i]] = string.ascii_uppercase[nshift]
+               shifted[string.ascii_lowercase[i]] = string.ascii_lowercase[nshift]
+      
+        return shifted
+        #done
+              
+            
 
     def apply_shift(self, shift):
         '''
