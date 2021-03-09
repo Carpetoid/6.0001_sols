@@ -277,7 +277,34 @@ if __name__ == '__main__':
     print('Actual Output:', ciphertext.decrypt_message())
 
     #TODO: WRITE YOUR TEST CASES HERE
-
-    #TODO: best shift value and unencrypted story 
+   
+    #plaintext:
+    plaintext1 = PlaintextMessage('abcdefg', 1)
+    print('Expected Output: bcdefgh')
+    print('Actual Output:', plaintext1.get_message_text_encrypted())
     
-    pass #delete this line and replace with your code here
+    plaintext2 = PlaintextMessage('hola como estas', 10)
+    print('Expected Output: ryvk mywy ocdkc')
+    print('Actual Output:', plaintext2.get_message_text_encrypted())
+    
+    #ciphertext:
+    a = CiphertextMessage('ij, J xpvme mjlf up xpsl jo uif sftfbsdi joevtusz pg dpnqvufs tdjfodf')
+    print('Expected Output:', (25, 'hi, I would like to work in the research industry of computer science'))
+    print('Actual Output:', a.decrypt_message())
+    
+    b = CiphertextMessage("gxqnwvkqpcta dkqnqia, lqwtpcnkuo, cpf ruaejqnqia, ctg hkgnfu vjcv kpvgtguv og")
+    print('Expected Output:', (24, 'evolutionary biology, journalism, and psychology, are fields that interest me'))
+    print('Actual Output:', b.decrypt_message())
+        
+    
+    
+    #TODO: best shift value and unencrypted story 
+    cipher = CiphertextMessage(get_story_string())
+    print(cipher.decrypt_message())
+    #Xoqy Tzcfsm wg o amhvwqoz qvofoqhsf qfsohsr 
+    #cb hvs gdif ct o acasbh hc vszd qcjsf ob 
+    #wbgittwqwsbhzm dzobbsr voqy. Vs vog pssb fsuwghsfsr 
+    #tcf qzoggsg oh AWH hkwqs pstcfs, pih vog fsdcfhsrzm 
+    #bsjsf doggsr oqzogg. Wh vog pssb hvs hforwhwcb ct hvs fsgwrsbhg 
+    #ct Sogh Qoadig hc psqcas Xoqy Tzcfsm tcf o tsk bwuvhg soqv msof hc 
+    #sriqohs wbqcawbu ghirsbhg wb hvs komg, asobg, obr shvwqg ct voqywbu.
