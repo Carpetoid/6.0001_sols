@@ -70,15 +70,17 @@ class SubMessage(object):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        pass #delete this line and replace with your code here
-    
+        self.message_text = text
+        self.valid_words = load_words(WORDLIST_FILENAME)
+        #done
     def get_message_text(self):
         '''
         Used to safely access self.message_text outside of the class
         
         Returns: self.message_text
         '''
-        pass #delete this line and replace with your code here
+        return self.message_text
+        #done
 
     def get_valid_words(self):
         '''
@@ -87,7 +89,8 @@ class SubMessage(object):
         
         Returns: a COPY of self.valid_words
         '''
-        pass #delete this line and replace with your code here
+        return self.valid_words.copy()
+        #done
                 
     def build_transpose_dict(self, vowels_permutation):
         '''
@@ -108,8 +111,29 @@ class SubMessage(object):
         Returns: a dictionary mapping a letter (string) to 
                  another letter (string). 
         '''
+        unchanged = ['a', 'e', 'i', 'o', 'u']
+        dct_vowels = {}
+        dct = {}
+        vowels_permutation_ls = list(vowels_permutation)
         
-        pass #delete this line and replace with your code here
+        for i in range(5):
+            dct_vowels[unchanged[i]] = vowels_permutation_ls[i]
+        
+        for i in string.ascii_uppercase:
+            dct[i] = i
+        for i in string.ascii_lowercase:
+            dct[i] = i
+        
+        for key in dct_vowels:
+            for i in dct:
+                if key.upper() == i:
+                    dct[i] = dct_vowels[key].upper()
+        for key in dct_vowels:
+            for i in dct:
+                if key == i:
+                    dct[i] = dct_vowels[key]
+        return dct
+        #done
     
     def apply_transpose(self, transpose_dict):
         '''
@@ -118,8 +142,14 @@ class SubMessage(object):
         Returns: an encrypted version of the message text, based 
         on the dictionary
         '''
-        
-        pass #delete this line and replace with your code here
+        ls_encrypted = []
+        for i in self.message_text:
+            if i in transpose_dict:
+                ls_encrypted.append(transpose_dict[i])
+            else:
+                ls_encrypted.append(i)
+        return ''.join(ls_encrypted)
+        #done
         
 class EncryptedSubMessage(SubMessage):
     def __init__(self, text):
@@ -132,8 +162,8 @@ class EncryptedSubMessage(SubMessage):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        pass #delete this line and replace with your code here
-
+        SubMessage.__init__(self, text)
+        #done
     def decrypt_message(self):
         '''
         Attempt to decrypt the encrypted message 
@@ -152,8 +182,29 @@ class EncryptedSubMessage(SubMessage):
         
         Hint: use your function from Part 4A
         '''
-        pass #delete this line and replace with your code here
-    
+        permutations = get_permutations('aeiou')
+        permutation1 = None
+        counter1 = 0
+       
+        for permutation in permutations:
+            decrypted = self.apply_transpose(self.build_transpose_dict(permutation))
+            ls = decrypted.split(" ")
+            counter = 0
+            
+            for word in ls:
+                if is_word(self.get_valid_words(), word):
+                    counter += 1
+            
+            if counter >= counter1:
+                counter1 = counter 
+                permutation1 = permutation
+      
+        if counter1 == 0:
+            return self.message_text
+        
+        return self.apply_transpose(self.build_transpose_dict(permutation1))  
+        
+        
 
 if __name__ == '__main__':
 
