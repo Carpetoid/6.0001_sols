@@ -155,13 +155,29 @@ class TimeTrigger(Trigger):
 #        Input: Time has to be in EST and in the format of "%d %b %Y %H:%M:%S".
 #        Convert time from string to a datetime before saving it as an attribute.
     def __init__(self, time):
-        self.time = datetime.strptime(time, '%d %b %Y %H:%M:%S')
-        self.time.replace(tzinfo=pytz.timezone('EST'))
+        self.time = datetime.strptime(time, '%d %b %Y %H:%M:%S').replace(tzinfo=pytz.timezone('EST'))
+        
         
 
 # Problem 6
 # TODO: BeforeTrigger and AfterTrigger
-
+class BeforeTrigger(TimeTrigger):
+    def __init__(self, time):
+        TimeTrigger.__init__(self, time)
+        
+    def evaluate(self, story):
+        date_story = story.get_pubdate().replace(tzinfo=pytz.timezone('EST'))
+        Condition = self.time > date_story
+        return Condition
+    
+class AfterTrigger(TimeTrigger):
+    def __init__(self, time):
+        TimeTrigger.__init__(self, time)
+        
+    def evaluate(self, story):
+        date_story = story.get_pubdate().replace(tzinfo=pytz.timezone('EST'))
+        Condition = self.time < date_story
+        return Condition
 
 # COMPOSITE TRIGGERS
 
