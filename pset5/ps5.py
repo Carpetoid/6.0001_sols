@@ -12,7 +12,6 @@ from mtTkinter import *
 from datetime import datetime
 import pytz
 
-
 #-----------------------------------------------------------------------
 
 #======================
@@ -55,7 +54,28 @@ def process(url):
 # Problem 1
 
 # TODO: NewsStory
-
+class NewsStory():
+    def __init__(self, guid, title, description, link, pubdate):
+        self.guid = guid
+        self.title = title
+        self.description = description
+        self.link = link
+        self.pubdate = pubdate
+    
+    def get_guid(self):
+        return self.guid
+    
+    def get_title(self):
+        return self.title
+    
+    def get_description(self):
+        return self.description
+    
+    def get_link(self):
+        return self.link
+    
+    def get_pubdate(self):
+        return self.pubdate
 
 #======================
 # Triggers
@@ -74,9 +94,44 @@ class Trigger(object):
 
 # Problem 2
 # TODO: PhraseTrigger
+class PhraseTrigger(Trigger):
+     def __init__(self, phrase):
+         self.phrase = phrase.lower()
+     
+     def is_phrase_in(self, text):
+        text = text.lower()
+       
+        for i in string.punctuation:
+            text = text.replace(i, ' ')
+        
+        text = text.split(' ')
+       
+        for i in text.copy():
+            if i == '':
+                text.remove(i)    
+       
+        text = ' '.join(text)
+        textls = text.split(' ')
+        for i in range(len(textls)):
+            temp = textls[i:]
+            
+            for s in range(len(temp)):
+                a = temp[:s+1]
+               
+                if ' '.join(a) == self.phrase:
+                    return True
+        return False
+           
 
+     
 # Problem 3
 # TODO: TitleTrigger
+class TitleTrigger(PhraseTrigger):
+   def __init__(self, phrase):
+       self.phrase = phrase.lower()
+  
+
+        
 
 # Problem 4
 # TODO: DescriptionTrigger
