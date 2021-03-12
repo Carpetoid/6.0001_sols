@@ -107,11 +107,13 @@ class PhraseTrigger(Trigger):
         text = text.split(' ')
        
         for i in text.copy():
+            
             if i == '':
                 text.remove(i)    
        
         text = ' '.join(text)
         textls = text.split(' ')
+       
         for i in range(len(textls)):
             temp = textls[i:]
             
@@ -120,17 +122,18 @@ class PhraseTrigger(Trigger):
                
                 if ' '.join(a) == self.phrase:
                     return True
-        return False
-           
-
-     
+        return False     
 # Problem 3
 # TODO: TitleTrigger
 class TitleTrigger(PhraseTrigger):
-   def __init__(self, phrase):
-       self.phrase = phrase.lower()
+    def __init__(self, phrase):
+        PhraseTrigger.__init__(self, phrase)
   
-
+    def evaluate(self, story):
+        title = story.get_title()
+        return self.is_phrase_in(title)
+        
+        
         
 
 # Problem 4
