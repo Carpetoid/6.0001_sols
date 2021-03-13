@@ -222,6 +222,12 @@ def filter_stories(stories, triggerlist):
     # TODO: Problem 10
     # This is a placeholder
     # (we're just returning all the stories, with no filtering)
+    new = []
+    for trigger in triggerlist:
+        for story in stories:
+            if trigger.evaluate(story):
+                new.append(story)
+    stories = new
     return stories
 
 
